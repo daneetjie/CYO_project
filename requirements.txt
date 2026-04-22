@@ -5,4 +5,3 @@ scikit-learn
 gunicorn
 seaborn
 plotly
-xyz
