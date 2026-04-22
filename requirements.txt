@@ -1,0 +1,8 @@
+dash
+pandas
+numpy
+scikit-learn
+gunicorn
+seaborn
+plotly
+xyz
