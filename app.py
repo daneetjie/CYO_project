@@ -1,554 +1,318 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 15,
-   "id": "872887a9-623d-422d-95b2-2b802a94c9c4",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# Web App"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 2,
-   "id": "460e8ba0-0c82-4a83-8257-622aa31aaf1f",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Defaulting to user installation because normal site-packages is not writeable\n",
-      "Requirement already satisfied: dash in c:\\users\\danee\\appdata\\roaming\\python\\python313\\site-packages (4.1.0)\n",
-      "Requirement already satisfied: Flask<3.2,>=1.0.4 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash) (3.1.2)\n",
-      "Requirement already satisfied: Werkzeug<3.2 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash) (3.1.3)\n",
-      "Requirement already satisfied: plotly>=5.0.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash) (6.3.0)\n",
-      "Requirement already satisfied: importlib-metadata in c:\\programdata\\anaconda3\\lib\\site-packages (from dash) (8.7.0)\n",
-      "Requirement already satisfied: typing_extensions>=4.1.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash) (4.15.0)\n",
-      "Requirement already satisfied: requests in c:\\programdata\\anaconda3\\lib\\site-packages (from dash) (2.32.5)\n",
-      "Requirement already satisfied: retrying in c:\\users\\danee\\appdata\\roaming\\python\\python313\\site-packages (from dash) (1.4.2)\n",
-      "Requirement already satisfied: nest-asyncio in c:\\programdata\\anaconda3\\lib\\site-packages (from dash) (1.6.0)\n",
-      "Requirement already satisfied: setuptools in c:\\programdata\\anaconda3\\lib\\site-packages (from dash) (80.9.0)\n",
-      "Requirement already satisfied: blinker>=1.9.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash) (1.9.0)\n",
-      "Requirement already satisfied: click>=8.1.3 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash) (8.2.1)\n",
-      "Requirement already satisfied: itsdangerous>=2.2.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash) (2.2.0)\n",
-      "Requirement already satisfied: jinja2>=3.1.2 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash) (3.1.6)\n",
-      "Requirement already satisfied: markupsafe>=2.1.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash) (3.0.2)\n",
-      "Requirement already satisfied: colorama in c:\\programdata\\anaconda3\\lib\\site-packages (from click>=8.1.3->Flask<3.2,>=1.0.4->dash) (0.4.6)\n",
-      "Requirement already satisfied: narwhals>=1.15.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from plotly>=5.0.0->dash) (2.7.0)\n",
-      "Requirement already satisfied: packaging in c:\\programdata\\anaconda3\\lib\\site-packages (from plotly>=5.0.0->dash) (25.0)\n",
-      "Requirement already satisfied: zipp>=3.20 in c:\\programdata\\anaconda3\\lib\\site-packages (from importlib-metadata->dash) (3.23.0)\n",
-      "Requirement already satisfied: charset_normalizer<4,>=2 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash) (3.4.4)\n",
-      "Requirement already satisfied: idna<4,>=2.5 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash) (3.11)\n",
-      "Requirement already satisfied: urllib3<3,>=1.21.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash) (2.5.0)\n",
-      "Requirement already satisfied: certifi>=2017.4.17 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash) (2025.11.12)\n",
-      "Defaulting to user installation because normal site-packages is not writeable\n",
-      "Requirement already satisfied: dash-ag-grid in c:\\users\\danee\\appdata\\roaming\\python\\python313\\site-packages (35.2.0)\n",
-      "Requirement already satisfied: dash>=2 in c:\\users\\danee\\appdata\\roaming\\python\\python313\\site-packages (from dash-ag-grid) (4.1.0)\n",
-      "Requirement already satisfied: Flask<3.2,>=1.0.4 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-ag-grid) (3.1.2)\n",
-      "Requirement already satisfied: Werkzeug<3.2 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-ag-grid) (3.1.3)\n",
-      "Requirement already satisfied: plotly>=5.0.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-ag-grid) (6.3.0)\n",
-      "Requirement already satisfied: importlib-metadata in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-ag-grid) (8.7.0)\n",
-      "Requirement already satisfied: typing_extensions>=4.1.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-ag-grid) (4.15.0)\n",
-      "Requirement already satisfied: requests in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-ag-grid) (2.32.5)\n",
-      "Requirement already satisfied: retrying in c:\\users\\danee\\appdata\\roaming\\python\\python313\\site-packages (from dash>=2->dash-ag-grid) (1.4.2)\n",
-      "Requirement already satisfied: nest-asyncio in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-ag-grid) (1.6.0)\n",
-      "Requirement already satisfied: setuptools in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-ag-grid) (80.9.0)\n",
-      "Requirement already satisfied: blinker>=1.9.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash>=2->dash-ag-grid) (1.9.0)\n",
-      "Requirement already satisfied: click>=8.1.3 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash>=2->dash-ag-grid) (8.2.1)\n",
-      "Requirement already satisfied: itsdangerous>=2.2.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash>=2->dash-ag-grid) (2.2.0)\n",
-      "Requirement already satisfied: jinja2>=3.1.2 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash>=2->dash-ag-grid) (3.1.6)\n",
-      "Requirement already satisfied: markupsafe>=2.1.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash>=2->dash-ag-grid) (3.0.2)\n",
-      "Requirement already satisfied: colorama in c:\\programdata\\anaconda3\\lib\\site-packages (from click>=8.1.3->Flask<3.2,>=1.0.4->dash>=2->dash-ag-grid) (0.4.6)\n",
-      "Requirement already satisfied: narwhals>=1.15.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from plotly>=5.0.0->dash>=2->dash-ag-grid) (2.7.0)\n",
-      "Requirement already satisfied: packaging in c:\\programdata\\anaconda3\\lib\\site-packages (from plotly>=5.0.0->dash>=2->dash-ag-grid) (25.0)\n",
-      "Requirement already satisfied: zipp>=3.20 in c:\\programdata\\anaconda3\\lib\\site-packages (from importlib-metadata->dash>=2->dash-ag-grid) (3.23.0)\n",
-      "Requirement already satisfied: charset_normalizer<4,>=2 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash>=2->dash-ag-grid) (3.4.4)\n",
-      "Requirement already satisfied: idna<4,>=2.5 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash>=2->dash-ag-grid) (3.11)\n",
-      "Requirement already satisfied: urllib3<3,>=1.21.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash>=2->dash-ag-grid) (2.5.0)\n",
-      "Requirement already satisfied: certifi>=2017.4.17 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash>=2->dash-ag-grid) (2025.11.12)\n",
-      "Defaulting to user installation because normal site-packages is not writeable\n",
-      "Requirement already satisfied: dash[cloud] in c:\\users\\danee\\appdata\\roaming\\python\\python313\\site-packages (4.1.0)\n",
-      "Requirement already satisfied: Flask<3.2,>=1.0.4 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash[cloud]) (3.1.2)\n",
-      "Requirement already satisfied: Werkzeug<3.2 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash[cloud]) (3.1.3)\n",
-      "Requirement already satisfied: plotly>=5.0.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash[cloud]) (6.3.0)\n",
-      "Requirement already satisfied: importlib-metadata in c:\\programdata\\anaconda3\\lib\\site-packages (from dash[cloud]) (8.7.0)\n",
-      "Requirement already satisfied: typing_extensions>=4.1.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash[cloud]) (4.15.0)\n",
-      "Requirement already satisfied: requests in c:\\programdata\\anaconda3\\lib\\site-packages (from dash[cloud]) (2.32.5)\n",
-      "Requirement already satisfied: retrying in c:\\users\\danee\\appdata\\roaming\\python\\python313\\site-packages (from dash[cloud]) (1.4.2)\n",
-      "Requirement already satisfied: nest-asyncio in c:\\programdata\\anaconda3\\lib\\site-packages (from dash[cloud]) (1.6.0)\n",
-      "Requirement already satisfied: setuptools in c:\\programdata\\anaconda3\\lib\\site-packages (from dash[cloud]) (80.9.0)\n",
-      "Requirement already satisfied: plotly-cloud in c:\\users\\danee\\appdata\\roaming\\python\\python313\\site-packages (from dash[cloud]) (0.3.0)\n",
-      "Requirement already satisfied: blinker>=1.9.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash[cloud]) (1.9.0)\n",
-      "Requirement already satisfied: click>=8.1.3 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash[cloud]) (8.2.1)\n",
-      "Requirement already satisfied: itsdangerous>=2.2.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash[cloud]) (2.2.0)\n",
-      "Requirement already satisfied: jinja2>=3.1.2 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash[cloud]) (3.1.6)\n",
-      "Requirement already satisfied: markupsafe>=2.1.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash[cloud]) (3.0.2)\n",
-      "Requirement already satisfied: colorama in c:\\programdata\\anaconda3\\lib\\site-packages (from click>=8.1.3->Flask<3.2,>=1.0.4->dash[cloud]) (0.4.6)\n",
-      "Requirement already satisfied: narwhals>=1.15.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from plotly>=5.0.0->dash[cloud]) (2.7.0)\n",
-      "Requirement already satisfied: packaging in c:\\programdata\\anaconda3\\lib\\site-packages (from plotly>=5.0.0->dash[cloud]) (25.0)\n",
-      "Requirement already satisfied: zipp>=3.20 in c:\\programdata\\anaconda3\\lib\\site-packages (from importlib-metadata->dash[cloud]) (3.23.0)\n",
-      "Requirement already satisfied: httpx<1.0.0,>=0.24.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from plotly-cloud->dash[cloud]) (0.28.1)\n",
-      "Requirement already satisfied: rich>=10.0.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from plotly-cloud->dash[cloud]) (14.2.0)\n",
-      "Requirement already satisfied: tomli-w>=1.2.0 in c:\\users\\danee\\appdata\\roaming\\python\\python313\\site-packages (from plotly-cloud->dash[cloud]) (1.2.0)\n",
-      "Requirement already satisfied: tomli>=2.2.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from plotly-cloud->dash[cloud]) (2.2.1)\n",
-      "Requirement already satisfied: anyio in c:\\programdata\\anaconda3\\lib\\site-packages (from httpx<1.0.0,>=0.24.0->plotly-cloud->dash[cloud]) (4.10.0)\n",
-      "Requirement already satisfied: certifi in c:\\programdata\\anaconda3\\lib\\site-packages (from httpx<1.0.0,>=0.24.0->plotly-cloud->dash[cloud]) (2025.11.12)\n",
-      "Requirement already satisfied: httpcore==1.* in c:\\programdata\\anaconda3\\lib\\site-packages (from httpx<1.0.0,>=0.24.0->plotly-cloud->dash[cloud]) (1.0.9)\n",
-      "Requirement already satisfied: idna in c:\\programdata\\anaconda3\\lib\\site-packages (from httpx<1.0.0,>=0.24.0->plotly-cloud->dash[cloud]) (3.11)\n",
-      "Requirement already satisfied: h11>=0.16 in c:\\programdata\\anaconda3\\lib\\site-packages (from httpcore==1.*->httpx<1.0.0,>=0.24.0->plotly-cloud->dash[cloud]) (0.16.0)\n",
-      "Requirement already satisfied: markdown-it-py>=2.2.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from rich>=10.0.0->plotly-cloud->dash[cloud]) (2.2.0)\n",
-      "Requirement already satisfied: pygments<3.0.0,>=2.13.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from rich>=10.0.0->plotly-cloud->dash[cloud]) (2.19.2)\n",
-      "Requirement already satisfied: mdurl~=0.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from markdown-it-py>=2.2.0->rich>=10.0.0->plotly-cloud->dash[cloud]) (0.1.2)\n",
-      "Requirement already satisfied: sniffio>=1.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from anyio->httpx<1.0.0,>=0.24.0->plotly-cloud->dash[cloud]) (1.3.0)\n",
-      "Requirement already satisfied: charset_normalizer<4,>=2 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash[cloud]) (3.4.4)\n",
-      "Requirement already satisfied: urllib3<3,>=1.21.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash[cloud]) (2.5.0)\n",
-      "Defaulting to user installation because normal site-packages is not writeable\n",
-      "Requirement already satisfied: dash-mantine-components==2.3.0 in c:\\users\\danee\\appdata\\roaming\\python\\python313\\site-packages (2.3.0)\n",
-      "Requirement already satisfied: dash>=2 in c:\\users\\danee\\appdata\\roaming\\python\\python313\\site-packages (from dash-mantine-components==2.3.0) (4.1.0)\n",
-      "Requirement already satisfied: Flask<3.2,>=1.0.4 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-mantine-components==2.3.0) (3.1.2)\n",
-      "Requirement already satisfied: Werkzeug<3.2 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-mantine-components==2.3.0) (3.1.3)\n",
-      "Requirement already satisfied: plotly>=5.0.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-mantine-components==2.3.0) (6.3.0)\n",
-      "Requirement already satisfied: importlib-metadata in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-mantine-components==2.3.0) (8.7.0)\n",
-      "Requirement already satisfied: typing_extensions>=4.1.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-mantine-components==2.3.0) (4.15.0)\n",
-      "Requirement already satisfied: requests in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-mantine-components==2.3.0) (2.32.5)\n",
-      "Requirement already satisfied: retrying in c:\\users\\danee\\appdata\\roaming\\python\\python313\\site-packages (from dash>=2->dash-mantine-components==2.3.0) (1.4.2)\n",
-      "Requirement already satisfied: nest-asyncio in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-mantine-components==2.3.0) (1.6.0)\n",
-      "Requirement already satisfied: setuptools in c:\\programdata\\anaconda3\\lib\\site-packages (from dash>=2->dash-mantine-components==2.3.0) (80.9.0)\n",
-      "Requirement already satisfied: blinker>=1.9.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash>=2->dash-mantine-components==2.3.0) (1.9.0)\n",
-      "Requirement already satisfied: click>=8.1.3 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash>=2->dash-mantine-components==2.3.0) (8.2.1)\n",
-      "Requirement already satisfied: itsdangerous>=2.2.0 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash>=2->dash-mantine-components==2.3.0) (2.2.0)\n",
-      "Requirement already satisfied: jinja2>=3.1.2 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash>=2->dash-mantine-components==2.3.0) (3.1.6)\n",
-      "Requirement already satisfied: markupsafe>=2.1.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from Flask<3.2,>=1.0.4->dash>=2->dash-mantine-components==2.3.0) (3.0.2)\n",
-      "Requirement already satisfied: colorama in c:\\programdata\\anaconda3\\lib\\site-packages (from click>=8.1.3->Flask<3.2,>=1.0.4->dash>=2->dash-mantine-components==2.3.0) (0.4.6)\n",
-      "Requirement already satisfied: narwhals>=1.15.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from plotly>=5.0.0->dash>=2->dash-mantine-components==2.3.0) (2.7.0)\n",
-      "Requirement already satisfied: packaging in c:\\programdata\\anaconda3\\lib\\site-packages (from plotly>=5.0.0->dash>=2->dash-mantine-components==2.3.0) (25.0)\n",
-      "Requirement already satisfied: zipp>=3.20 in c:\\programdata\\anaconda3\\lib\\site-packages (from importlib-metadata->dash>=2->dash-mantine-components==2.3.0) (3.23.0)\n",
-      "Requirement already satisfied: charset_normalizer<4,>=2 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash>=2->dash-mantine-components==2.3.0) (3.4.4)\n",
-      "Requirement already satisfied: idna<4,>=2.5 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash>=2->dash-mantine-components==2.3.0) (3.11)\n",
-      "Requirement already satisfied: urllib3<3,>=1.21.1 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash>=2->dash-mantine-components==2.3.0) (2.5.0)\n",
-      "Requirement already satisfied: certifi>=2017.4.17 in c:\\programdata\\anaconda3\\lib\\site-packages (from requests->dash>=2->dash-mantine-components==2.3.0) (2025.11.12)\n"
-     ]
-    }
-   ],
-   "source": [
-    "!pip install dash\n",
-    "!pip install dash-ag-grid\n",
-    "!pip install dash[cloud]\n",
-    "!pip install dash-mantine-components==2.3.0"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 7,
-   "id": "3d1f8e2f-5eda-41b9-b76a-3811f4c34d46",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "import joblib\n",
-    "import dash_mantine_components as dmc\n",
-    "import dash_ag_grid as dag\n",
-    "import pandas as pd\n",
-    "from dash import Dash, html, dcc, callback, Output, Input, State, no_update"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 12,
-   "id": "d459922f-f164-40f1-ba42-630a387f9ef7",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Dash app running on http://127.0.0.1:8051/\n"
-     ]
-    },
-    {
-     "data": {
-      "application/javascript": [
-       "window.open('http://127.0.0.1:8051/')"
-      ],
-      "text/plain": [
-       "<IPython.core.display.Javascript object>"
-      ]
-     },
-     "metadata": {},
-     "output_type": "display_data"
-    },
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "Traceback (most recent call last):\n",
-      "  File \"C:\\Users\\danee\\AppData\\Roaming\\Python\\Python313\\site-packages\\plotly_cloud\\_devtool_publish_rpc.py\", line 169, in handle_operation\n",
-      "    return await method(data)\n",
-      "           ^^^^^^^^^^^^^^^^^^\n",
-      "  File \"C:\\Users\\danee\\AppData\\Roaming\\Python\\Python313\\site-packages\\plotly_cloud\\_devtool_publish_rpc.py\", line 184, in initialize\n",
-      "    project_path = self.get_project_path()\n",
-      "  File \"C:\\Users\\danee\\AppData\\Roaming\\Python\\Python313\\site-packages\\plotly_cloud\\_devtool_publish_rpc.py\", line 66, in get_project_path\n",
-      "    return os.path.dirname(str(app_module.__file__))\n",
-      "                               ^^^^^^^^^^^^^^^^^^^\n",
-      "AttributeError: module '__main__' has no attribute '__file__'. Did you mean: '__name__'?\n",
-      "Traceback (most recent call last):\n",
-      "  File \"C:\\Users\\danee\\AppData\\Roaming\\Python\\Python313\\site-packages\\plotly_cloud\\_devtool_publish_rpc.py\", line 169, in handle_operation\n",
-      "    return await method(data)\n",
-      "           ^^^^^^^^^^^^^^^^^^\n",
-      "  File \"C:\\Users\\danee\\AppData\\Roaming\\Python\\Python313\\site-packages\\plotly_cloud\\_devtool_publish_rpc.py\", line 184, in initialize\n",
-      "    project_path = self.get_project_path()\n",
-      "  File \"C:\\Users\\danee\\AppData\\Roaming\\Python\\Python313\\site-packages\\plotly_cloud\\_devtool_publish_rpc.py\", line 66, in get_project_path\n",
-      "    return os.path.dirname(str(app_module.__file__))\n",
-      "                               ^^^^^^^^^^^^^^^^^^^\n",
-      "AttributeError: module '__main__' has no attribute '__file__'. Did you mean: '__name__'?\n"
-     ]
-    }
-   ],
-   "source": [
-    "df = pd.read_csv('clean_dataset.csv')\n",
-    "logreg = joblib.load('logreg.pkl')\n",
-    "scaler = joblib.load('scaler.pkl')\n",
-    "dtree= joblib.load('dtree_model.pkl')\n",
-    "feature_columns = joblib.load('feature_columns.pkl')\n",
-    "app = Dash()\n",
-    "server = app.server\n",
-    "\n",
-    "df['Churn'] = df['Churn'].map({1: 'Churned', 0: 'Retained'})\n",
-    "\n",
-    "\n",
-    "app.layout = dmc.MantineProvider(\n",
-    "    dmc.Container([\n",
-    "        \n",
-    "        dmc.Title('Customer Churn Analysis Dashboard', c='teal', order=1),\n",
-    "        \n",
-    "        dmc.Select(\n",
-    "            label='Select Model',\n",
-    "            data=['Logistic Regression', 'Decision Tree'],\n",
-    "            value='Logistic Regression',\n",
-    "            id='model-select'\n",
-    "        ),\n",
-    "\n",
-    "        dmc.Select(\n",
-    "            label='Contract Type', \n",
-    "            data=['Month-to-month', 'One year', 'Two year'], \n",
-    "            id='contract'\n",
-    "        ),\n",
-    "        \n",
-    "        dmc.NumberInput(label='Tenure (months)', value=12, id='tenure'),\n",
-    "        dmc.NumberInput(label='Monthly Charges', value=50, id='monthly-charges'),\n",
-    "\n",
-    "        dmc.RadioGroup(\n",
-    "            label='Select Gender',\n",
-    "            id='gender',\n",
-    "            children=[\n",
-    "                dmc.Radio('Male', value='Male'),\n",
-    "                dmc.Radio('Female', value='Female')\n",
-    "            ]\n",
-    "        ),\n",
-    "\n",
-    "        dmc.RadioGroup(\n",
-    "            label='Senior Citizen yes/no?',\n",
-    "            id='senior_citizen',\n",
-    "            children=[\n",
-    "                dmc.Radio('Yes', value='Yes'),\n",
-    "                dmc.Radio('No', value='No')\n",
-    "            ]\n",
-    "        ),\n",
-    "\n",
-    "        dmc.RadioGroup(\n",
-    "            label='Partner yes/no?',\n",
-    "            id='partner',\n",
-    "            children=[\n",
-    "                dmc.Radio('Yes', value='Yes'),\n",
-    "                dmc.Radio('No', value='No')\n",
-    "            ]\n",
-    "        ),\n",
-    "\n",
-    "        dmc.NumberInput(label='Total Charges', value=2000, id='total_charges'),\n",
-    "\n",
-    "        dmc.RadioGroup(\n",
-    "            label='Dependents yes/no?',\n",
-    "            id='dependents',\n",
-    "            children=[\n",
-    "                dmc.Radio('Yes', value='Yes'),\n",
-    "                dmc.Radio('No', value='No')\n",
-    "            ]\n",
-    "        ),\n",
-    "\n",
-    "        dmc.RadioGroup(\n",
-    "            label='Phone Service yes/no?',\n",
-    "            id='phone_service',\n",
-    "            children=[\n",
-    "                dmc.Radio('Yes', value='Yes'),\n",
-    "                dmc.Radio('No', value='No')\n",
-    "            ]\n",
-    "        ),\n",
-    "\n",
-    "        html.Div(\n",
-    "            id='multiplelinesContainer',\n",
-    "            children=[\n",
-    "                dmc.RadioGroup(\n",
-    "                    label='Multiple line yes/no?',\n",
-    "                    id='multiplelines',\n",
-    "                    children=[\n",
-    "                        dmc.Radio('Yes', value='Yes'),\n",
-    "                        dmc.Radio('No', value='No')\n",
-    "                    ]\n",
-    "                )\n",
-    "            ]\n",
-    "        ),\n",
-    "\n",
-    "        dmc.Select(\n",
-    "            label='Internet Service', \n",
-    "            data=['DSL', 'Fiber optic', 'No'], \n",
-    "            id='internet_service'\n",
-    "        ),\n",
-    "\n",
-    "        html.Div(\n",
-    "            id='NeedInternetContainer',\n",
-    "            children=[\n",
-    "                dmc.RadioGroup(\n",
-    "                    label='Online Security yes/no?',\n",
-    "                    id='onlinesecurity',\n",
-    "                    children=[\n",
-    "                        dmc.Radio('Yes', value='Yes'),\n",
-    "                        dmc.Radio('No', value='No')\n",
-    "                    ]\n",
-    "                ),\n",
-    "\n",
-    "                dmc.RadioGroup(\n",
-    "                    label='Online Backup yes/no?',\n",
-    "                    id='onlinebackup',\n",
-    "                    children=[\n",
-    "                        dmc.Radio('Yes', value='Yes'),\n",
-    "                        dmc.Radio('No', value='No')\n",
-    "                    ]\n",
-    "                ),\n",
-    "\n",
-    "                 dmc.RadioGroup(\n",
-    "                    label='Device Protection yes/no?',\n",
-    "                    id='deviceprotection',\n",
-    "                    children=[\n",
-    "                        dmc.Radio('Yes', value='Yes'),\n",
-    "                        dmc.Radio('No', value='No')\n",
-    "                    ]\n",
-    "                ),\n",
-    "\n",
-    "                dmc.RadioGroup(\n",
-    "                    label='Tech Support yes/no?',\n",
-    "                    id='techsupport',\n",
-    "                    children=[\n",
-    "                        dmc.Radio('Yes', value='Yes'),\n",
-    "                        dmc.Radio('No', value='No')\n",
-    "                    ]\n",
-    "                ),\n",
-    "\n",
-    "                dmc.RadioGroup(\n",
-    "                    label='Streaming TV yes/no?',\n",
-    "                    id='streamingTV',\n",
-    "                    children=[\n",
-    "                        dmc.Radio('Yes', value='Yes'),\n",
-    "                        dmc.Radio('No', value='No')\n",
-    "                    ]\n",
-    "                ),\n",
-    "\n",
-    "                 dmc.RadioGroup(\n",
-    "                    label='Streaming Movies yes/no?',\n",
-    "                    id='streamingMovies',\n",
-    "                    children=[\n",
-    "                        dmc.Radio('Yes', value='Yes'),\n",
-    "                        dmc.Radio('No', value='No')\n",
-    "                    ]\n",
-    "                )\n",
-    "            ]\n",
-    "        ),\n",
-    "\n",
-    "        dmc.RadioGroup(\n",
-    "                    label='Paperless billing yes/no?',\n",
-    "                    id='paperlessBill',\n",
-    "                    children=[\n",
-    "                        dmc.Radio('Yes', value='Yes'),\n",
-    "                        dmc.Radio('No', value='No')\n",
-    "                    ]\n",
-    "                ),\n",
-    "\n",
-    "         dmc.Select(\n",
-    "            label='Payment Method', \n",
-    "            data=['Electronic Check', 'Mailed Check', 'Bank Transfer', 'Credit card'], \n",
-    "            id='paymentMethod'\n",
-    "        ),\n",
-    "\n",
-    "        dmc.Button('Predict Churn', id='predict-btn', color='teal', mt='md'),  \n",
-    "        \n",
-    "        html.Div(\n",
-    "            id='prediction-output',\n",
-    "            style={'marginTop': '20px', 'fontSize': '20px'}\n",
-    "        )\n",
-    "\n",
-    "    ])\n",
-    ")\n",
-    "# Callback\n",
-    "\n",
-    "@callback(\n",
-    "    Output('multiplelinesContainer', 'style'), \n",
-    "    Input('phone_service', 'value'),\n",
-    "   \n",
-    ")\n",
-    "\n",
-    "\n",
-    "def toggle_multiple_lines(phone_val):\n",
-    "    if phone_val == 'Yes':\n",
-    "        return {'display': 'block', 'marginTop': '10px'}\n",
-    "    return {'display': 'none'}\n",
-    "\n",
-    "@callback(\n",
-    "     Output('NeedInternetContainer', 'style'),\n",
-    "     Input('internet_service', 'value')\n",
-    ")\n",
-    "\n",
-    "\n",
-    "def toggle_online_backup(internet_val):\n",
-    "    if internet_val =='Fiber optic' or internet_val == 'DSL':\n",
-    "        return {'display': 'block', 'marginTop': '10px'}\n",
-    "    return {'display': 'none'}\n",
-    "\n",
-    "\n",
-    "    \n",
-    "@callback(\n",
-    "    Output('prediction-output', 'children'),\n",
-    "    Input('predict-btn', 'n_clicks'),\n",
-    "    State('model-select', 'value'),\n",
-    "    State('contract', 'value'),\n",
-    "    State('tenure', 'value'),\n",
-    "    State('monthly-charges', 'value'),\n",
-    "    State('senior_citizen', 'value'),\n",
-    "    State('gender', 'value'),\n",
-    "    State('partner','value'),\n",
-    "    State('total_charges', 'value'),\n",
-    "    State('dependents', 'value'),\n",
-    "    State('phone_service', 'value'),\n",
-    "    State('multiplelines', 'value'),\n",
-    "    State('internet_service', 'value'),\n",
-    "    State('onlinesecurity', 'value'),\n",
-    "    State('onlinebackup', 'value'),\n",
-    "    State('deviceprotection', 'value'),\n",
-    "    State('techsupport', 'value'),\n",
-    "    State('streamingTV', 'value'),\n",
-    "    State('streamingMovies','value'),\n",
-    "    State('paperlessBill', 'value'),\n",
-    "    State('paymentMethod', 'value')\n",
-    ")\n",
-    "def predict_churn(n_clicks, model_chosen, contract, tenure, monthly_charges, gender,senior_citizen, partner, total_charges, dependents, phone_service, multiplelines,internet_service,onlinesecurity,onlinebackup,deviceprotection,techsupport,streamingTV,streamingMovies,paperlessBill,paymentMethod):\n",
-    "    if n_clicks is None:\n",
-    "        return no_update\n",
-    "    \n",
-    "    model = logreg if model_chosen == 'Logistic Regression' else dtree\n",
-    "\n",
-    "    input_data = pd.DataFrame([{col: 0 for col in feature_columns}])\n",
-    "    \n",
-    "    input_data['tenure'] = tenure\n",
-    "    input_data['MonthlyCharges'] = monthly_charges\n",
-    "    input_data['TotalCharges']=total_charges\n",
-    "    \n",
-    "    if contract == 'One year':\n",
-    "        input_data['Contract_one year'] = 1\n",
-    "    elif contract == 'Two year':\n",
-    "        input_data['Contract_two year'] = 1\n",
-    "\n",
-    "    if gender == 'Male':\n",
-    "        input_data['gender_male']=1\n",
-    "\n",
-    "    if senior_citizen== 'Yes':\n",
-    "        input_data['SeniorCitizen']=1\n",
-    "\n",
-    "    if partner == 'Yes':\n",
-    "        input_data['Partner_yes']=1\n",
-    "        \n",
-    "    if dependents == 'Yes':\n",
-    "        input_data['Dependents_yes']=1\n",
-    "\n",
-    "    if phone_service == 'Yes':\n",
-    "        input_data['PhoneService_yes']=1\n",
-    "    else:\n",
-    "        input_data['MultipleLines_no phone service']=1\n",
-    "\n",
-    "    if multiplelines=='Yes':\n",
-    "        input_data['MultipleLines_yes']=1\n",
-    "    \n",
-    "\n",
-    "    if internet_service == 'Fiber optic':\n",
-    "        input_data['InternetService_fiber optic']=1\n",
-    "    elif internet_service =='No':\n",
-    "        input_data['InternetService_no']=1\n",
-    "        input_data['OnlineSecurity_no internet service']=1\n",
-    "        input_data['OnlineBackup_no internet service']=1\n",
-    "        input_data['DeviceProtection_no internet service']=1\n",
-    "        input_data['TechSupport_no internet service']=1\n",
-    "        input_data['StreamingTV_no internet service']=1\n",
-    "        input_data['StreamingMovies_no internet service']=1\n",
-    "        \n",
-    "    if onlinebackup =='Yes':\n",
-    "        input_data['OnlineBackup_yes']=1\n",
-    "\n",
-    "    if deviceprotection == 'Yes':\n",
-    "        input_data['DeviceProtection_yes']=1\n",
-    "\n",
-    "    if techsupport == 'Yes':\n",
-    "        input_data['TechSupport_yes']=1\n",
-    "\n",
-    "    if streamingTV == 'Yes':\n",
-    "        input_data['StreamingTV_yes']=1\n",
-    "\n",
-    "    if streamingMovies == 'Yes':\n",
-    "        input_data['StreamingMovies_yes']=1\n",
-    "\n",
-    "    if paperlessBill == 'Yes':\n",
-    "        input_data['PaperlessBilling_yes']=1\n",
-    "\n",
-    "    if paymentMethod == 'Credit card':\n",
-    "        input_data['PaymentMethod_credit card (automatic)']=1\n",
-    "    elif paymentMethod == 'Electronic Check':\n",
-    "        input_data['PaymentMethod_electronic check']=1\n",
-    "    elif paymentMethod == 'Mailed Check':\n",
-    "        input_data['PaymentMethod_mailed check']=1\n",
-    "    \n",
-    "    if model_chosen == 'Logistic Regression': \n",
-    "        input_data = scaler.transform(input_data)  \n",
-    "\n",
-    "    \n",
-    "    \n",
-    "    \n",
-    "    prediction = model.predict(input_data)  \n",
-    "    return '🔴 Will Churn' if prediction[0] == 1 else '🟢 Will Not Churn'\n",
-    "\n",
-    "\n",
-    "\n",
-    "if __name__ == '__main__':\n",
-    "    app.run(debug=True,port=8051, jupyter_mode=\"tab\")"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3 (ipykernel)",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.13.9"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+import joblib
+import dash_mantine_components as dmc
+import dash_ag_grid as dag
+import pandas as pd
+from dash import Dash, html, dcc, callback, Output, Input, State, no_update
+
+df = pd.read_csv('clean_dataset.csv')
+logreg = joblib.load('logreg.pkl')
+scaler = joblib.load('scaler.pkl')
+dtree = joblib.load('dtree_model.pkl')
+feature_columns = joblib.load('feature_columns.pkl')
+
+app = Dash()
+server = app.server  # <-- exposed for gunicorn
+
+df['Churn'] = df['Churn'].map({1: 'Churned', 0: 'Retained'})
+
+app.layout = dmc.MantineProvider(
+    dmc.Container([
+
+        dmc.Title('Customer Churn Analysis Dashboard', c='teal', order=1),
+
+        dmc.Select(
+            label='Select Model',
+            data=['Logistic Regression', 'Decision Tree'],
+            value='Logistic Regression',
+            id='model-select'
+        ),
+
+        dmc.Select(
+            label='Contract Type',
+            data=['Month-to-month', 'One year', 'Two year'],
+            id='contract'
+        ),
+
+        dmc.NumberInput(label='Tenure (months)', value=12, id='tenure'),
+        dmc.NumberInput(label='Monthly Charges', value=50, id='monthly-charges'),
+        dmc.NumberInput(label='Total Charges', value=0, id='total_charges'),
+
+        dmc.RadioGroup(
+            label='Select Gender',
+            id='gender',
+            children=[
+                dmc.Radio('Male', value='Male'),
+                dmc.Radio('Female', value='Female')
+            ]
+        ),
+
+        dmc.RadioGroup(
+            label='Senior Citizen yes/no?',
+            id='senior_citizen',
+            children=[
+                dmc.Radio('Yes', value='Yes'),
+                dmc.Radio('No', value='No')
+            ]
+        ),
+
+        dmc.RadioGroup(
+            label='Partner yes/no?',
+            id='partner',
+            children=[
+                dmc.Radio('Yes', value='Yes'),
+                dmc.Radio('No', value='No')
+            ]
+        ),
+
+        dmc.RadioGroup(
+            label='Dependents yes/no?',
+            id='dependents',
+            children=[
+                dmc.Radio('Yes', value='Yes'),
+                dmc.Radio('No', value='No')
+            ]
+        ),
+
+        dmc.RadioGroup(
+            label='Phone Service yes/no?',
+            id='phone_service',
+            children=[
+                dmc.Radio('Yes', value='Yes'),
+                dmc.Radio('No', value='No')
+            ]
+        ),
+
+        html.Div(
+            id='multiplelinesContainer',
+            children=[
+                dmc.RadioGroup(
+                    label='Multiple Lines yes/no?',
+                    id='multiplelines',
+                    children=[
+                        dmc.Radio('Yes', value='Yes'),
+                        dmc.Radio('No', value='No')
+                    ]
+                )
+            ]
+        ),
+
+        dmc.Select(
+            label='Internet Service',
+            data=['DSL', 'Fiber optic', 'No'],
+            id='internet_service'
+        ),
+
+        html.Div(
+            id='NeedInternetContainer',
+            children=[
+                dmc.RadioGroup(
+                    label='Online Security yes/no?',
+                    id='onlinesecurity',
+                    children=[
+                        dmc.Radio('Yes', value='Yes'),
+                        dmc.Radio('No', value='No')
+                    ]
+                ),
+
+                dmc.RadioGroup(
+                    label='Online Backup yes/no?',
+                    id='onlinebackup',
+                    children=[
+                        dmc.Radio('Yes', value='Yes'),
+                        dmc.Radio('No', value='No')
+                    ]
+                ),
+
+                dmc.RadioGroup(
+                    label='Device Protection yes/no?',
+                    id='deviceprotection',
+                    children=[
+                        dmc.Radio('Yes', value='Yes'),
+                        dmc.Radio('No', value='No')
+                    ]
+                ),
+
+                dmc.RadioGroup(
+                    label='Tech Support yes/no?',
+                    id='techsupport',
+                    children=[
+                        dmc.Radio('Yes', value='Yes'),
+                        dmc.Radio('No', value='No')
+                    ]
+                ),
+
+                dmc.RadioGroup(
+                    label='Streaming TV yes/no?',
+                    id='streamingTV',
+                    children=[
+                        dmc.Radio('Yes', value='Yes'),
+                        dmc.Radio('No', value='No')
+                    ]
+                ),
+
+                dmc.RadioGroup(
+                    label='Streaming Movies yes/no?',
+                    id='streamingMovies',
+                    children=[
+                        dmc.Radio('Yes', value='Yes'),
+                        dmc.Radio('No', value='No')
+                    ]
+                )
+            ]
+        ),
+
+        dmc.RadioGroup(
+            label='Paperless billing yes/no?',
+            id='paperlessBill',
+            children=[
+                dmc.Radio('Yes', value='Yes'),
+                dmc.Radio('No', value='No')
+            ]
+        ),
+
+        dmc.Select(
+            label='Payment Method',
+            data=['Electronic Check', 'Mailed Check', 'Bank Transfer', 'Credit card'],
+            id='paymentMethod'
+        ),
+
+        dmc.Button('Predict Churn', id='predict-btn', color='teal', mt='md'),
+
+        html.Div(
+            id='prediction-output',
+            style={'marginTop': '20px', 'fontSize': '20px'}
+        )
+    ])
+)
+
+
+@callback(
+    Output('multiplelinesContainer', 'style'),
+    Input('phone_service', 'value'),
+)
+def toggle_multiple_lines(phone_val):
+    if phone_val == 'Yes':
+        return {'display': 'block', 'marginTop': '10px'}
+    return {'display': 'none'}
+
+
+@callback(
+    Output('NeedInternetContainer', 'style'),
+    Input('internet_service', 'value')
+)
+def toggle_online_backup(internet_val):
+    if internet_val == 'Fiber optic' or internet_val == 'DSL':
+        return {'display': 'block', 'marginTop': '10px'}
+    return {'display': 'none'}
+
+
+@callback(
+    Output('prediction-output', 'children'),
+    Input('predict-btn', 'n_clicks'),
+    State('model-select', 'value'),
+    State('contract', 'value'),
+    State('tenure', 'value'),
+    State('monthly-charges', 'value'),
+    State('senior_citizen', 'value'),
+    State('gender', 'value'),
+    State('partner', 'value'),
+    State('total_charges', 'value'),
+    State('dependents', 'value'),
+    State('phone_service', 'value'),
+    State('multiplelines', 'value'),
+    State('internet_service', 'value'),
+    State('onlinesecurity', 'value'),
+    State('onlinebackup', 'value'),
+    State('deviceprotection', 'value'),
+    State('techsupport', 'value'),
+    State('streamingTV', 'value'),
+    State('streamingMovies', 'value'),
+    State('paperlessBill', 'value'),
+    State('paymentMethod', 'value')
+)
+def predict_churn(n_clicks, model_chosen, contract, tenure, monthly_charges, gender,
+                  senior_citizen, partner, total_charges, dependents, phone_service,
+                  multiplelines, internet_service, onlinesecurity, onlinebackup,
+                  deviceprotection, techsupport, streamingTV, streamingMovies,
+                  paperlessBill, paymentMethod):
+    if n_clicks is None:
+        return no_update
+
+    model = logreg if model_chosen == 'Logistic Regression' else dtree
+
+    input_data = pd.DataFrame([{col: 0 for col in feature_columns}])
+
+    input_data['tenure'] = tenure
+    input_data['MonthlyCharges'] = monthly_charges
+    input_data['TotalCharges'] = total_charges
+
+    if contract == 'One year':
+        input_data['Contract_one year'] = 1
+    elif contract == 'Two year':
+        input_data['Contract_two year'] = 1
+
+    if gender == 'Male':
+        input_data['gender_male'] = 1
+
+    if senior_citizen == 'Yes':
+        input_data['SeniorCitizen'] = 1
+
+    if partner == 'Yes':
+        input_data['Partner_yes'] = 1
+
+    if dependents == 'Yes':
+        input_data['Dependents_yes'] = 1
+
+    if phone_service == 'Yes':
+        input_data['PhoneService_yes'] = 1
+    else:
+        input_data['MultipleLines_no phone service'] = 1
+
+    if multiplelines == 'Yes':
+        input_data['MultipleLines_yes'] = 1
+
+    if internet_service == 'Fiber optic':
+        input_data['InternetService_fiber optic'] = 1
+    elif internet_service == 'No':
+        input_data['InternetService_no'] = 1
+        input_data['OnlineSecurity_no internet service'] = 1
+        input_data['OnlineBackup_no internet service'] = 1
+        input_data['DeviceProtection_no internet service'] = 1
+        input_data['TechSupport_no internet service'] = 1
+        input_data['StreamingTV_no internet service'] = 1
+        input_data['StreamingMovies_no internet service'] = 1
+
+    if onlinebackup == 'Yes':
+        input_data['OnlineBackup_yes'] = 1
+
+    if deviceprotection == 'Yes':
+        input_data['DeviceProtection_yes'] = 1
+
+    if techsupport == 'Yes':
+        input_data['TechSupport_yes'] = 1
+
+    if streamingTV == 'Yes':
+        input_data['StreamingTV_yes'] = 1
+
+    if streamingMovies == 'Yes':
+        input_data['StreamingMovies_yes'] = 1
+
+    if paperlessBill == 'Yes':
+        input_data['PaperlessBilling_yes'] = 1
+
+    if paymentMethod == 'Credit card':
+        input_data['PaymentMethod_credit card (automatic)'] = 1
+    elif paymentMethod == 'Electronic Check':
+        input_data['PaymentMethod_electronic check'] = 1
+    elif paymentMethod == 'Mailed Check':
+        input_data['PaymentMethod_mailed check'] = 1
+
+    if model_chosen == 'Logistic Regression':
+        input_data = scaler.transform(input_data)
+
+    prediction = model.predict(input_data)
+    return '🔴 Will Churn' if prediction[0] == 1 else '🟢 Will Not Churn'
+
+
+if __name__ == '__main__':
+    app.run(debug=True, port=8051)
