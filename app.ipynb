@@ -213,6 +213,7 @@
     "dtree= joblib.load('dtree_model.pkl')\n",
     "feature_columns = joblib.load('feature_columns.pkl')\n",
     "app = Dash()\n",
+    "server = app.server\n",
     "\n",
     "df['Churn'] = df['Churn'].map({1: 'Churned', 0: 'Retained'})\n",
     "\n",
@@ -522,7 +523,7 @@
     "    prediction = model.predict(input_data)  \n",
     "    return '🔴 Will Churn' if prediction[0] == 1 else '🟢 Will Not Churn'\n",
     "\n",
-    "server = app.server\n",
+    "\n",
     "\n",
     "if __name__ == '__main__':\n",
     "    app.run(debug=True,port=8051, jupyter_mode=\"tab\")"
