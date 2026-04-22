@@ -527,22 +527,6 @@
     "if __name__ == '__main__':\n",
     "    app.run(debug=True,port=8051, jupyter_mode=\"tab\")"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "5bbb0c30-6b72-4a09-a143-f5166355b219",
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "1c41767a-9d81-4afe-b626-ad3ceec44569",
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {
