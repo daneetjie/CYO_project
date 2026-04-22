@@ -522,6 +522,7 @@
     "    prediction = model.predict(input_data)  \n",
     "    return '🔴 Will Churn' if prediction[0] == 1 else '🟢 Will Not Churn'\n",
     "\n",
+    "server = app.server\n",
     "\n",
     "if __name__ == '__main__':\n",
     "    app.run(debug=True,port=8051, jupyter_mode=\"tab\")"
