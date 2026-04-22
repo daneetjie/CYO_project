@@ -1,6 +1,7 @@
 dash
+dash-mantine-components==2.3.0
+dash-ag-grid
+joblib
 pandas
 scikit-learn
-joblib
-plotly
 gunicorn
